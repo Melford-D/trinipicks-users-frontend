@@ -1,0 +1,92 @@
+.selection-card{
+    width: 100% !important;
+    display: flex;
+    justify-content: center;
+    margin-top: 30px !important;
+    flex-wrap: wrap !important;
+}
+.scorelines{
+    font-weight: 600;
+    font-size: 45px;
+    line-height: 68px;
+    color: #0F3D59;
+}
+.card {
+    background: #F6FBFE !important;
+    border: 2px solid #E4ECF1 !important;
+    border-radius: 15px !important;
+    font-size: 20px !important;
+    line-height: 25px !important;
+    color: #5A5A5A !important;
+    width: 600px !important;
+}
+
+.card-title {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.card-text {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.card-text p {
+    margin-bottom: 1rem;
+}
+
+.team-logo,
+.scores {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.team-logo {
+    margin-top: 0.9rem;
+}
+
+.fa-chevron-up {
+    color: rgb(2, 115, 119);
+}
+
+.score-box {
+    width: 50px;
+    height: 50px;
+    border: 2px rgb(2, 115, 119) solid;
+    border-radius: 5px;
+}
+
+.score-number {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(2, 115, 119);
+}
+
+.submit-container{
+    width: 90%;
+}
+.submit-container {
+    height: 20vh;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.submit-btn {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.submit-btn button {
+    background: #0F3D59;
+    border-radius: 6px;
+}

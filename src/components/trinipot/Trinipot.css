@@ -1,0 +1,229 @@
+.header {
+    height: 100vh;
+}
+
+.navbar-style {
+    background-color: #F3FBFF;
+    height: 8rem;
+}
+
+.container {
+    margin-top: 12px;
+}
+
+.navbar-btn {
+    background-color: #0F3D59;
+    color: #fff;
+}
+
+.nav-play {
+    margin: 0px;
+    height: 1.5rem;
+    margin-top: -20px;
+    background-color: #F5B517;
+
+}
+
+.logo {
+    padding: 2px 10px;
+    width: 80%;
+}
+
+.icon-bar {
+    background-color: #FFA500;
+}
+
+li a {
+    color: #135772; 
+}
+
+.celebration-man{
+    padding-top: 100px;
+}
+
+.celebration{
+    width: 700px;   
+    height: auto;
+}
+.promo{
+    padding-top: 100px;
+    margin-left: 100px;
+}
+.backdrop {
+    background-image: url(../../assets/jackpot/hero-image.png);
+    background-repeat: no-repeat;
+    width: 100%;
+    margin-top: -20px;
+    object-fit: contain;
+    background-size: cover
+}
+.jackpot-money{
+    color: #FFA500;
+    font-weight: 900;
+    font-size: 4rem;
+}
+.play-btn {
+    background-color: #FFA500;
+    border-radius: 5px;
+    border: none;
+    text-transform: uppercase;
+    padding: 24px 48px;
+    color: #0F3D59;
+    font-weight: 700;
+    font-size: 15px;
+}
+
+.row {
+    margin: 10px 0;
+}
+
+.row h1 {
+    margin-bottom: 0px;
+}
+
+.vector {
+    margin-top: 120px;
+}
+
+.vector img {
+    height: 70px;
+}
+
+.big-text {
+    font-size: 91px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #FFA500;
+}
+
+.copyright-2 {
+    margin-top: 10px;
+}
+
+
+/* footer styling */
+.footer-top {
+    background-color: #ECF7FD;
+    padding-top: 30px;
+    padding-bottom: 50px;
+}
+
+.row {
+    margin-top: 20px;
+}
+
+p {
+    font-weight: 700;
+}
+
+.segment-one p {
+    padding-bottom: 15px;
+    font-size: 12px;
+}
+
+.segment-one ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.segment-one ul li {
+    padding-bottom: 10px;
+}
+
+.segment-one ul li a {
+    text-decoration: none;
+}
+
+.segment-one a {
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    border-radius: 50%;
+}
+
+.fa-facebook {
+    background-color: #0F3D59;
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    border-radius: 50%;
+}
+
+.fa-twitter {
+    background-color: #87CEEB;
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    border-radius: 50%;
+}
+
+.fa-instagram {
+    background-color: #A831C1;
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    border-radius: 50%;
+}
+
+.segment-one a i {
+    font-size: 20px;
+    color: #fff;
+    padding: 10px 12px;
+}
+
+.segment-two ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.segment-two ul li {
+    padding-bottom: 10px;
+}
+
+.segment-two ul li a {
+    text-decoration: none;
+    color: #808080;
+}
+
+.segment-three ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.segment-three ul li {
+    padding-bottom: 10px;
+}
+
+.segment-three ul li a {
+    text-decoration: none;
+    color: #808080;
+
+}
+
+.segment-four form input[type=email] {
+    padding: 8px 15px;
+    font-size: 20px;
+}
+
+.segment-four form input[type=submit] {
+    background-color: #0F3D59;
+    border: none;
+    color: #fff;
+    padding: 15px 15px 12px 15px;
+    margin-left: -5px;
+    font-size: 15px;
+
+}
+
+.footer-bottom-text {
+    background-color: #0F3D59;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 100;
+    line-height: 65px;
+    margin-left: 10px;
+    text-align: center;
+}
