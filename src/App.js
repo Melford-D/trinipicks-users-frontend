@@ -14,6 +14,8 @@ import SportSelection from "./components/trinipot/selection/SportSelection";
 import LeaderBoard from "./components/trinipot/leaderboard/LeaderBoard";
 import HowToPlay from "./components/trinipot/leaderboard/HowToPlay";
 
+import UserDashboard from './pages/UserDashboard';
+
 function App() {
   return (
     <>
@@ -32,6 +34,7 @@ function App() {
             <Route path="/leaderboard" component={LeaderBoard} />
             <Route path="/how-to-play" component={HowToPlay} />
             <Route path="/faq" component={Faq} />
+            <Route path='/userdashboard' component={UserDashboard} />
           </Switch>
         </Router>
       </div>
