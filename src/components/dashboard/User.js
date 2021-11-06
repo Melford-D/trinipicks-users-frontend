@@ -1,12 +1,20 @@
-import React from "react";
+// import React, { useState, useEffect } from "react";
 import "./User.css";
 import { ArrowDropUp, KeyboardArrowDown, Menu } from "@material-ui/icons";
 import PaymentSection from "./payment/PaymentSection";
 import Sidebar from "./sidebar/Sidebar";
 import Topbar2 from "./topbar/Topbar2";
 import PaymentSectionBottom from "./payment/PaymentSectionBottom";
+// import { useSelector } from "react-redux";
 
 function User() {
+  // const [name, setName] = useState("");
+  // const userLogin = useSelector((state) => state.userLogin);
+  // const { userInfo } = userLogin;
+  // useEffect(() => {
+  //   console.log(userInfo);
+  //   setName(userInfo.user.name);
+  // }, [userInfo.user.name]);
   return (
     <>
       <div className="userContainer">
@@ -16,7 +24,7 @@ function User() {
             <div className="middle">
               <div className="admin">
                 <Menu />
-                <h2>Welcome, Dan</h2>
+                <h2>Welcome, Dan </h2>
               </div>
               <div className="title-bar">
                 <h1>| Dashboard</h1>
