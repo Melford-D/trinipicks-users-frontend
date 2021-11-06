@@ -6,8 +6,13 @@ import {
     userLoginReducer 
 } from './Reducers/UserAuthReducer/UserLoginReducer';
 
+import { 
+    sendRecoveryEmailReducer, 
+} from './Reducers/ResetPassReducers/ResetPassReducer';
+
 const reducer = combineReducers({
     userLogin: userLoginReducer,
+    recoveryEmailStatus: sendRecoveryEmailReducer,
 });
 
 const initialState = {};

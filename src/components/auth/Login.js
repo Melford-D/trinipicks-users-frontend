@@ -2,9 +2,15 @@ import React, {useState, useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import NavBar from "../NavBar";
 import Celebration from "../../assets/img/celebration-2.png";
+import {Button} from 'react-bootstrap';
 
 // login action
 import { login } from "../../Actions/UserAuthActions/UserLoginAction";
+
+// step 1 
+import {
+  sendRecoveryEmail,
+} from '../../Actions/ResetPassActions/ResetPassActions';
 
 // created this components for user experience and user interface notifiation
 import Message from '../MessageComp/Message';
@@ -13,9 +19,16 @@ import Loader from '../LoaderComp/Loader';
 function Login({ location, history }) {
   const dispatch = useDispatch();
 
+  // keep track of reset password comp
+  const [resetPassComp, setResetPassComp] = useState('');
+
   const userLogin = useSelector(state => state.userLogin);
   const {loading, error, userInfo} = userLogin;
-  console.log('user info:>>', userInfo);
+
+  const recoveryEmailStatus = useSelector(state => state.recoveryEmailStatus);
+  const {loading:emailResLoading, error:emailResError, emailRes} = recoveryEmailStatus;
+  // const {payload} = emailRes;
+  console.log(emailRes, emailResLoading)
 
   const [usernameOrEmail, setUsernameOrEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -25,6 +38,10 @@ function Login({ location, history }) {
   const [clientError, setClientError] = useState(false);
 
   useEffect(() => {
+    // if(payload === 'OTP sent') {
+    //   setResetPassComp('step 2')
+    // }
+
     if(userInfo) {
       // if login success redirect here
       history.push('/userdashboard');
@@ -47,6 +64,10 @@ function Login({ location, history }) {
     dispatch(login(usernameOrEmail, password));
    }
 
+  };
+
+  const handleResetPassword = () => {
+    setResetPassComp('step 1');
   };
 
   return (
@@ -74,60 +95,190 @@ function Login({ location, history }) {
                 clientError ? (
                   <Message variant='danger'>{errorMessage}</Message>
                 ) : 
-                error ? (
-                  <Message variant='danger'>{error}</Message>
+                error || emailResError ? (
+                  <Message variant='danger'>{error || emailResError}</Message>
                 ) :
-                loading ? (
+                loading || emailResLoading ? (
                   <Loader />
                 ) : ''
               }
 
               <form>
 
-                <div className="mb-3">
-                  <label for="exampleInputEmail1" className="form-label">
-                    Email / Username
-                  </label>
-                  <input
-                    type="email"
-                    className="form-control"
-                    id="exampleInputEmail1"
-                    aria-describedby="emailHelp"
-                    value={usernameOrEmail}
-                    onChange={(e) => setUsernameOrEmail(e.target.value)}
-                  />
-                </div>
+               {
+                 resetPassComp === '' ? (
+                  <div className="mb-3">
+                    <label for="exampleInputEmail1" className="form-label">
+                      Email / Username
+                    </label>
+                    <input
+                      type="email"
+                      className="form-control"
+                      id="exampleInputEmail1"
+                      aria-describedby="emailHelp"
+                      value={usernameOrEmail}
+                      onChange={(e) => setUsernameOrEmail(e.target.value)}
+                    />
+                  </div>
+                 ) :
+                 resetPassComp === 'step 1' ? (
+                  <div className="mb-3">
+                    <label for="exampleInputEmail1" className="form-label">
+                      Enter Recovery Email
+                    </label>
+                    <input
+                      type="email"
+                      className="form-control"
+                      id="exampleInputEmail1"
+                      aria-describedby="emailHelp"
+                      value={usernameOrEmail}
+                      onChange={(e) => setUsernameOrEmail(e.target.value)}
+                    />
 
-                <div className="mb-3">
-                  <label for="exampleInputEmail1" className="form-label">
-                    Password
-                  </label>
-                  <input
-                    type="password"
-                    className="form-control"
-                    id="exampleInputPasswiord"
-                    aria-describedby="passwordHelp"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                  <label
-                    for="exampleInputEmail1"
-                    className="form-label checkbox"
-                  >
-                    Forgot password?
-                    <span className="agreement"> Reset here</span>
-                  </label>
+                    <Button 
+                      className='mt-3' 
+                      variant='dark'
+                      onClick={() => {dispatch(sendRecoveryEmail(usernameOrEmail))}}
+                    >
+                      Next Step
+                    </Button>
+                 </div>
+                 ) : 
+                 resetPassComp === 'step 2' ? (
+                  <div className="mb-3">
+                    <label for="exampleInputEmail1" className="form-label">
+                      Enter Recovery Email
+                    </label>
+                    <input
+                      type="email"
+                      className="form-control"
+                      id="exampleInputEmail1"
+                      aria-describedby="emailHelp"
+                      value={usernameOrEmail}
+                      onChange={(e) => setUsernameOrEmail(e.target.value)}
+                    />
+                  </div>
+                 ) : 
+                 resetPassComp === 'step 3' ? (
+                  <div className="mb-3">
+                    <label for="exampleInputEmail1" className="form-label">
+                      Enter Recovery Email
+                    </label>
+                    <input
+                      type="email"
+                      className="form-control"
+                      id="exampleInputEmail1"
+                      aria-describedby="emailHelp"
+                      value={usernameOrEmail}
+                      onChange={(e) => setUsernameOrEmail(e.target.value)}
+                    />
                 </div>
+                 ) : ''
+               }
 
-                <div className="mb-3 text-center button signup-btn">
-                  <button
-                    type="submit"
-                    className="btn btn-color text-white btn-lg py-2 px-5 mt-3 mb-5"
-                    onClick={handleSubmit}
-                  >
-                    Log in
-                  </button>
-                </div>
+                {
+                  resetPassComp === '' ? (
+                    <div className="mb-3">
+                      <label for="exampleInputEmail1" className="form-label">
+                        Password
+                      </label>
+                      <input
+                        type="password"
+                        className="form-control"
+                        id="exampleInputPasswiord"
+                        aria-describedby="passwordHelp"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                      />
+                      <label
+                        for="exampleInputEmail1"
+                        className="form-label checkbox"
+                      >
+                        Forgot password?
+                        <span 
+                          className="agreement"
+                          onClick={handleResetPassword}
+                        > 
+                          Reset here
+                        </span>
+                      </label>
+                   </div>
+                  ) : 
+                  resetPassComp === 'step 1'? (
+                    <div>
+
+                    </div>
+                  ) : 
+                  resetPassComp === 'step 2' ? (
+                    <div className="mb-3">
+                      <label for="exampleInputEmail1" className="form-label">
+                        Enter Your OTP
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="exampleInputPasswiord"
+                        aria-describedby="passwordHelp"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                      />
+                      
+                      <Button 
+                        className='mt-3' 
+                        variant='dark'
+                        onClick={() => {setResetPassComp('step 3')}}
+                      >
+                      Next Step
+                    </Button>
+                     </div>
+                  ) : 
+                  resetPassComp === 'step 3' ? (
+                    <div className="mb-3">
+                      <label for="exampleInputEmail1" className="form-label">
+                        Enter New Password
+                      </label>
+                      <input
+                        type="password"
+                        className="form-control"
+                        id="exampleInputPasswiord"
+                        aria-describedby="passwordHelp"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                      />
+                    </div>
+                  ) : ''
+                }
+
+               {
+                 resetPassComp === '' ? (
+                  <div className="mb-3 text-center button signup-btn">
+                    <button
+                      type="submit"
+                      className="btn btn-color text-white btn-lg py-2 px-5 mt-3 mb-5"
+                      onClick={handleSubmit}
+                    >
+                      Log in
+                    </button>
+                  </div>
+                 ) :
+                  resetPassComp === 'step 1' ? (
+                    <div></div>
+                ) :
+                  resetPassComp === 'step 2' ? (
+                    <div></div>
+                ) :
+                  resetPassComp === 'step 3' ? (
+                    <div className="mb-3 text-center button signup-btn">
+                    <button
+                      type="submit"
+                      className="btn btn-color text-white btn-lg py-2 px-5 mt-3 mb-5"
+                      onClick={handleSubmit}
+                    >
+                      Log in
+                    </button>
+                  </div>
+                ) : ''
+               }
 
               </form>
             </div>
