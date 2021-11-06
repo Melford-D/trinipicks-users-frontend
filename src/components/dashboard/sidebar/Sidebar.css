@@ -1,0 +1,71 @@
+.sideBar {
+    flex: 1;
+    height: 100vh;
+    background: #F3FBFF;
+    position: sticky;
+    padding-right: 40px;
+}
+
+.trinipicks-logo {
+    border-bottom: 1px solid rgba(15, 61, 89, 0.31);
+    margin-bottom: 50px;
+}
+
+.trinipicks-logo img {
+    width: 150px;
+    height: 150px;
+}
+
+.sidebarWrapper {
+    padding: 0px 20px;
+    color: #0F3D59;
+}
+
+.sidebarMenu {
+    margin-bottom: 10px;
+}
+
+.sidebarTitle {
+    font-size: 13px;
+    font-weight: bold;
+    color: rgb(187, 186, 186);
+}
+
+.sidebarList {
+    list-style: none;
+    padding: 150px 5px 5px 0px;
+}
+
+.sidebarListItem {
+    padding: 14px 0px;
+    color: #0F3D59;
+    cursor: pointer;
+    display: flex;
+    font-size: .8rem;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.sidebarListItem.active,
+.sidebarListItem:hover {
+    background-color: #F5B517;
+}
+
+.sidebarIcon {
+    margin-right: 10px;
+    font-size: 20px !important;
+}
+
+.exit {
+    margin-top: 150px;
+    margin-bottom: 30px;
+}
+
+.version {
+    margin-bottom: 18px;
+}
+
+.incomeIcon {
+    width: 24px;
+    height: 24px;
+}

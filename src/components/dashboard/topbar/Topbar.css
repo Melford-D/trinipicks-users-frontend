@@ -1,0 +1,74 @@
+.topBar {
+    padding: 8px 0px;
+    position: sticky;
+    top: 0;
+}
+
+.logout:hover {
+    color: red;
+}
+
+.logo {
+    font-weight: bold;
+    font-size: 30px;
+    color: darkblue;
+    cursor: pointer;
+}
+
+.notification {
+    color: #FCC744;
+}
+
+.topLeft {
+    flex: .4;
+}
+
+.topLeft img {
+    width: 90px;
+    height: 90px;
+}
+
+.topLeft img:hover {
+    cursor: pointer;
+}
+
+.topRight {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex: .6;
+}
+.profile-name h4{
+    font-size: .8rem;
+}
+.profile-name p{
+    font-size: .8rem;
+}
+.topbarIconContainer {
+    position: relative;
+    cursor: pointer;
+    margin-right: 10px;
+    color: #555;
+}
+
+.topIconBadge {
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    top: -5px;
+    right: 0px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+}
+
+.topAvatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+}

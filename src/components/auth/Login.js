@@ -1,40 +1,42 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import NavBar from "../NavBar";
 import Celebration from "../../assets/img/celebration-2.png";
-import {Button} from 'react-bootstrap';
+import { Button } from "react-bootstrap";
 
 // login action
 import { login } from "../../Actions/UserAuthActions/UserLoginAction";
 
-// step 1 
-import {
-  sendRecoveryEmail,
-} from '../../Actions/ResetPassActions/ResetPassActions';
+// step 1
+import { sendRecoveryEmail } from "../../Actions/ResetPassActions/ResetPassActions";
 
 // created this components for user experience and user interface notifiation
-import Message from '../MessageComp/Message';
-import Loader from '../LoaderComp/Loader';
+import Message from "../MessageComp/Message";
+import Loader from "../LoaderComp/Loader";
 
 function Login({ location, history }) {
   const dispatch = useDispatch();
 
   // keep track of reset password comp
-  const [resetPassComp, setResetPassComp] = useState('');
+  const [resetPassComp, setResetPassComp] = useState("");
 
-  const userLogin = useSelector(state => state.userLogin);
-  const {loading, error, userInfo} = userLogin;
+  const userLogin = useSelector((state) => state.userLogin);
+  const { loading, error, userInfo } = userLogin;
 
-  const recoveryEmailStatus = useSelector(state => state.recoveryEmailStatus);
-  const {loading:emailResLoading, error:emailResError, emailRes} = recoveryEmailStatus;
+  const recoveryEmailStatus = useSelector((state) => state.recoveryEmailStatus);
+  const {
+    loading: emailResLoading,
+    error: emailResError,
+    emailRes,
+  } = recoveryEmailStatus;
   // const {payload} = emailRes;
-  console.log(emailRes, emailResLoading)
+  console.log(emailRes, emailResLoading);
 
-  const [usernameOrEmail, setUsernameOrEmail] = useState('');
-  const [password, setPassword] = useState('');
-  
+  const [usernameOrEmail, setUsernameOrEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   // created this piece of state to monitor clientside input errors
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState("");
   const [clientError, setClientError] = useState(false);
 
   useEffect(() => {
@@ -42,32 +44,33 @@ function Login({ location, history }) {
     //   setResetPassComp('step 2')
     // }
 
-    if(userInfo) {
+    if (userInfo) {
       // if login success redirect here
-      history.push('/userdashboard');
+      history.push("/user-dashboard");
     }
-  }, [history, userInfo])
+  }, [history, userInfo]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-   // user input validation
-   if(usernameOrEmail.length < 5) {
-      setErrorMessage('Please username / email should have more than 5 characters');
+    // user input validation
+    if (usernameOrEmail.length < 5) {
+      setErrorMessage(
+        "Please username / email should have more than 5 characters"
+      );
       setClientError(true);
-   } else if (password < 5) {
-      setErrorMessage('Please password should have more than 5 characters');
+    } else if (password < 5) {
+      setErrorMessage("Please password should have more than 5 characters");
       setClientError(true);
-   } else {
-    setErrorMessage(' ')
-    setClientError(false);
-    dispatch(login(usernameOrEmail, password));
-   }
-
+    } else {
+      setErrorMessage(" ");
+      setClientError(false);
+      dispatch(login(usernameOrEmail, password));
+    }
   };
 
   const handleResetPassword = () => {
-    setResetPassComp('step 1');
+    setResetPassComp("step 1");
   };
 
   return (
@@ -75,15 +78,12 @@ function Login({ location, history }) {
       <NavBar />
       <div className="container">
         <div className="row">
-
           <div className="signup-container d-flex mt-5">
-
             <div className="col-sm-12 col-md-6">
               <img src={Celebration} alt="Google store" className="img-fluid" />
             </div>
 
             <div className="col-sm-12 col-md-6">
-
               <h1 className="mainHeading join">Join the winning community</h1>
 
               <p>
@@ -91,22 +91,18 @@ function Login({ location, history }) {
                 eveniet! dummy text
               </p>
 
-              {
-                clientError ? (
-                  <Message variant='danger'>{errorMessage}</Message>
-                ) : 
-                error || emailResError ? (
-                  <Message variant='danger'>{error || emailResError}</Message>
-                ) :
-                loading || emailResLoading ? (
-                  <Loader />
-                ) : ''
-              }
+              {clientError ? (
+                <Message variant="danger">{errorMessage}</Message>
+              ) : error || emailResError ? (
+                <Message variant="danger">{error || emailResError}</Message>
+              ) : loading || emailResLoading ? (
+                <Loader />
+              ) : (
+                ""
+              )}
 
               <form>
-
-               {
-                 resetPassComp === '' ? (
+                {resetPassComp === "" ? (
                   <div className="mb-3">
                     <label for="exampleInputEmail1" className="form-label">
                       Email / Username
@@ -120,8 +116,7 @@ function Login({ location, history }) {
                       onChange={(e) => setUsernameOrEmail(e.target.value)}
                     />
                   </div>
-                 ) :
-                 resetPassComp === 'step 1' ? (
+                ) : resetPassComp === "step 1" ? (
                   <div className="mb-3">
                     <label for="exampleInputEmail1" className="form-label">
                       Enter Recovery Email
@@ -135,16 +130,17 @@ function Login({ location, history }) {
                       onChange={(e) => setUsernameOrEmail(e.target.value)}
                     />
 
-                    <Button 
-                      className='mt-3' 
-                      variant='dark'
-                      onClick={() => {dispatch(sendRecoveryEmail(usernameOrEmail))}}
+                    <Button
+                      className="mt-3"
+                      variant="dark"
+                      onClick={() => {
+                        dispatch(sendRecoveryEmail(usernameOrEmail));
+                      }}
                     >
                       Next Step
                     </Button>
-                 </div>
-                 ) : 
-                 resetPassComp === 'step 2' ? (
+                  </div>
+                ) : resetPassComp === "step 2" ? (
                   <div className="mb-3">
                     <label for="exampleInputEmail1" className="form-label">
                       Enter Recovery Email
@@ -158,8 +154,7 @@ function Login({ location, history }) {
                       onChange={(e) => setUsernameOrEmail(e.target.value)}
                     />
                   </div>
-                 ) : 
-                 resetPassComp === 'step 3' ? (
+                ) : resetPassComp === "step 3" ? (
                   <div className="mb-3">
                     <label for="exampleInputEmail1" className="form-label">
                       Enter Recovery Email
@@ -172,85 +167,79 @@ function Login({ location, history }) {
                       value={usernameOrEmail}
                       onChange={(e) => setUsernameOrEmail(e.target.value)}
                     />
-                </div>
-                 ) : ''
-               }
+                  </div>
+                ) : (
+                  ""
+                )}
 
-                {
-                  resetPassComp === '' ? (
-                    <div className="mb-3">
-                      <label for="exampleInputEmail1" className="form-label">
-                        Password
-                      </label>
-                      <input
-                        type="password"
-                        className="form-control"
-                        id="exampleInputPasswiord"
-                        aria-describedby="passwordHelp"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                      />
-                      <label
-                        for="exampleInputEmail1"
-                        className="form-label checkbox"
-                      >
-                        Forgot password?
-                        <span 
-                          className="agreement"
-                          onClick={handleResetPassword}
-                        > 
-                          Reset here
-                        </span>
-                      </label>
-                   </div>
-                  ) : 
-                  resetPassComp === 'step 1'? (
-                    <div>
+                {resetPassComp === "" ? (
+                  <div className="mb-3">
+                    <label for="exampleInputEmail1" className="form-label">
+                      Password
+                    </label>
+                    <input
+                      type="password"
+                      className="form-control"
+                      id="exampleInputPasswiord"
+                      aria-describedby="passwordHelp"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <label
+                      for="exampleInputEmail1"
+                      className="form-label checkbox"
+                    >
+                      Forgot password?
+                      <span className="agreement" onClick={handleResetPassword}>
+                        Reset here
+                      </span>
+                    </label>
+                  </div>
+                ) : resetPassComp === "step 1" ? (
+                  <div></div>
+                ) : resetPassComp === "step 2" ? (
+                  <div className="mb-3">
+                    <label for="exampleInputEmail1" className="form-label">
+                      Enter Your OTP
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="exampleInputPasswiord"
+                      aria-describedby="passwordHelp"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
 
-                    </div>
-                  ) : 
-                  resetPassComp === 'step 2' ? (
-                    <div className="mb-3">
-                      <label for="exampleInputEmail1" className="form-label">
-                        Enter Your OTP
-                      </label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        id="exampleInputPasswiord"
-                        aria-describedby="passwordHelp"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                      />
-                      
-                      <Button 
-                        className='mt-3' 
-                        variant='dark'
-                        onClick={() => {setResetPassComp('step 3')}}
-                      >
+                    <Button
+                      className="mt-3"
+                      variant="dark"
+                      onClick={() => {
+                        setResetPassComp("step 3");
+                      }}
+                    >
                       Next Step
                     </Button>
-                     </div>
-                  ) : 
-                  resetPassComp === 'step 3' ? (
-                    <div className="mb-3">
-                      <label for="exampleInputEmail1" className="form-label">
-                        Enter New Password
-                      </label>
-                      <input
-                        type="password"
-                        className="form-control"
-                        id="exampleInputPasswiord"
-                        aria-describedby="passwordHelp"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                      />
-                    </div>
-                  ) : ''
-                }
+                  </div>
+                ) : resetPassComp === "step 3" ? (
+                  <div className="mb-3">
+                    <label for="exampleInputEmail1" className="form-label">
+                      Enter New Password
+                    </label>
+                    <input
+                      type="password"
+                      className="form-control"
+                      id="exampleInputPasswiord"
+                      aria-describedby="passwordHelp"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                  </div>
+                ) : (
+                  ""
+                )}
 
-               {
-                 resetPassComp === '' ? (
+                {resetPassComp === "" ? (
                   <div className="mb-3 text-center button signup-btn">
                     <button
                       type="submit"
@@ -260,15 +249,12 @@ function Login({ location, history }) {
                       Log in
                     </button>
                   </div>
-                 ) :
-                  resetPassComp === 'step 1' ? (
-                    <div></div>
-                ) :
-                  resetPassComp === 'step 2' ? (
-                    <div></div>
-                ) :
-                  resetPassComp === 'step 3' ? (
-                    <div className="mb-3 text-center button signup-btn">
+                ) : resetPassComp === "step 1" ? (
+                  <div></div>
+                ) : resetPassComp === "step 2" ? (
+                  <div></div>
+                ) : resetPassComp === "step 3" ? (
+                  <div className="mb-3 text-center button signup-btn">
                     <button
                       type="submit"
                       className="btn btn-color text-white btn-lg py-2 px-5 mt-3 mb-5"
@@ -277,13 +263,12 @@ function Login({ location, history }) {
                       Log in
                     </button>
                   </div>
-                ) : ''
-               }
-
+                ) : (
+                  ""
+                )}
               </form>
             </div>
           </div>
-          
         </div>
       </div>
     </>

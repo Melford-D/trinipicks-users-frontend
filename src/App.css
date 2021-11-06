@@ -28,6 +28,10 @@ button:hover{
     margin-bottom: 6px;
     border: 0.56068px solid #0F3D59;
 }
+.login {
+    background: #0F3D59 !important;
+    border-color: #ECF7FD !important;
+}
 .mainHeading{
     font-style: normal;
     font-weight: bold;

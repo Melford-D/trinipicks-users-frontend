@@ -21,29 +21,22 @@ function NavBar() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Link to="#how-it-works">
-              <Nav>How it works</Nav>
-            </Link>
-            <Link to="#pricing">
-              <Nav>Pricing</Nav>
-            </Link>
-            <Link to="#about">
-              <Nav>About</Nav>
-            </Link>
-            <Link to="#contact">
-              <Nav>Contact</Nav>
-            </Link>
+            <Nav.Link href="#how-it-works" className="menu-item">
+              How it works
+            </Nav.Link>
+            <Nav.Link href="#pricing" className="menu-item">
+              Pricing
+            </Nav.Link>
+            <Nav.Link href="#about" className="menu-item">
+              About
+            </Nav.Link>
+            <Nav.Link href="#contact" className="menu-item">
+              Contact
+            </Nav.Link>
           </Nav>
           <Nav>
             <Link to="/login">
-              <Nav>Login</Nav>
-            </Link>
-          </Nav>
-          <Nav>
-            <Link to="/signup" className="text-white">
-              <Button className="signUp" variant="primary">
-                Sign up
-              </Button>
+              <Button className="login text-white">Login</Button>
             </Link>
           </Nav>
         </Navbar.Collapse>

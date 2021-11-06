@@ -1,0 +1,235 @@
+.home {
+    display: flex;
+    justify-content: space-between;
+    flex: 4;
+}
+
+.admin {
+    display: flex;
+    padding-top: 30px;
+    padding-left: 20px;
+    align-items: center;
+}
+
+.admin h2 {
+    margin-left: 8px;
+}
+
+.title-bar {
+    margin-top: 30px;
+    padding-left: 30px;
+}
+
+.middle {
+    flex: 3;
+}
+
+.right {
+    padding-left: 20px;
+    padding-right: 30px;
+    background: #F0F6F9;
+}
+
+.card-container {
+    display: flex;
+    padding: 50px 30px 14px 30px;
+}
+
+.card-item {
+    height: 244px;
+    background: #F3FBFF;
+    border-radius: 10px;
+    margin: 5px;
+    padding: 20px;
+}
+
+.card-one div p {
+    padding-bottom: 10px;
+}
+
+.card-two {
+    flex: .5;
+    position: relative;
+    background: #FFF8E8;
+}
+
+.card-two p {
+    padding-bottom: 10px;
+}
+
+.predictions h3 {
+    font-size: .8rem;
+}
+
+.predictions p {
+    font-size: .6rem;
+}
+
+.card-one {
+    position: relative;
+    flex: .5;
+}
+
+.circle-counter {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 72px;
+    width: 72px;
+    border: 3.6px solid #E8EAED;
+    border-radius: 50%;
+    bottom: 10px;
+    right: 10px;
+}
+
+.circle-counter h3 {
+    font-size: .9rem;
+}
+
+.circle-counter p {
+    font-size: .7rem;
+}
+
+.monthly-income {
+    position: absolute;
+    top: 30px;
+    right: 20px;
+}
+
+.percentage {
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
+}
+
+.percentage-value {
+    display: flex;
+    align-items: center;
+    font-size: .8rem;
+}
+.userContainer {
+    display: flex;
+}
+
+.mainContent {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+/* BTCPayServer */
+.btcpay-form {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 32px;
+}
+
+.btcpay-form--inline {
+    flex-direction: row;
+}
+
+.btcpay-form--block {
+    flex-direction: column;
+}
+
+.btcpay-form--inline .submit {
+    margin-left: 15px;
+}
+
+.btcpay-form--block select {
+    margin-bottom: 10px;
+}
+
+.btcpay-form .btcpay-custom-container {
+    text-align: center;
+}
+
+.btcpay-custom {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btcpay-form .plus-minus {
+    cursor: pointer;
+    font-size: 25px;
+    line-height: 25px;
+    background: #DFE0E1;
+    height: 30px;
+    width: 45px;
+    border: none;
+    border-radius: 60px;
+    margin: auto 5px;
+    display: inline-flex;
+    justify-content: center;
+}
+
+.btcpay-form select {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    color: currentColor;
+    background: transparent;
+    border: 1px solid transparent;
+    display: block;
+    padding: 1px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 11px;
+    cursor: pointer;
+}
+
+.btcpay-form select:hover {
+    border-color: #ccc;
+}
+
+#btcpay-input-price {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    border: none;
+    box-shadow: none;
+    text-align: center;
+    font-size: 25px;
+    margin: auto;
+    border-radius: 5px;
+    line-height: 35px;
+    background: #fff;
+}
+
+#btcpay-input-price::-webkit-outer-spin-button,
+#btcpay-input-price::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+@media (max-width: 991px) {
+    .userContainer{
+        display: none;
+    }
+    .home-alt{
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 1199px) {
+    .card-container {
+        flex-direction: column;
+    }
+
+    .card-item {
+        padding: 100px 0px;
+    }
+
+    .card-item .predictions {
+        padding-left: 10px;
+    }
+}
+@media (min-width: 992px) {
+    .userContainer-2 {
+        display: none;
+    }
+}
