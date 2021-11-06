@@ -1,0 +1,66 @@
+/* User transactions */
+.user-transactions {
+    margin-top: 100px;
+    width: 80%;
+}
+
+.user-container {
+    margin-left: 12px;
+}
+
+.user-transactions h4 {
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 30px;
+    color: #0F3D59;
+    cursor: pointer;
+}
+
+.users {
+    margin-top: 10px;
+    border-bottom: 0.5px solid rgba(15, 61, 89, 0.19);
+    padding-bottom: 10px;
+}
+
+.user {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-card {
+    display: flex;
+    align-items: center;
+}
+
+.user-plan {
+    display: flex;
+    flex-direction: column;
+    margin-left: 8px;
+}
+
+.user-plan h2 {
+    color: #504F4F;
+    font-size: 1rem;
+}
+
+.user-plan p {
+    color: #504F4F82;
+    font-size: .8rem;
+}
+
+.users p {
+    font-size: .7rem;
+    color: #0F3D5982;
+}
+
+.user-amount h3 {
+    color: #04B72B;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.income-icon {
+    width: 24px;
+    height: 24px;
+}
