@@ -7,7 +7,6 @@ import {
 } from '../../Constants/UserAuthConst/UserLoginConst';
 
 export const login = (usernameOrEmail, password) => async (dispatch) => {
-    console.log(usernameOrEmail, password)
     try {
 
         dispatch({

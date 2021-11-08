@@ -13,6 +13,8 @@ export default function Sidebar() {
     localStorage.clear();
     swal("You are logged out successfully");
     history.push("/");
+    // hot fix for illegal login
+    window.location.reload();
   };
   return (
     <div className="sideBar">
