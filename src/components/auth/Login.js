@@ -8,7 +8,7 @@ import { Button } from "react-bootstrap";
 import { login } from "../../Actions/UserAuthActions/UserLoginAction";
 
 // step 1
-import { sendRecoveryEmail } from "../../Actions/ResetPassActions/ResetPassActions";
+import { sendRecoveryEmail, sendRecoveryEmailAndOtp } from "../../Actions/ResetPassActions/ResetPassActions";
 
 // created this components for user experience and user interface notifiation
 import Message from "../MessageComp/Message";
@@ -29,26 +29,38 @@ function Login({ location, history }) {
     error: emailResError,
     emailRes,
   } = recoveryEmailStatus;
-  // const {payload} = emailRes;
-  console.log(emailRes, emailResLoading);
+
+  const recoveryEmailAndOtpStatus = useSelector((state) => state.recoveryEmailAndOtpStatus);
+  const {
+    loading: emailAndOtpResLoading,
+    error: emailAndOtpResError,
+    emailAndOtpRes,
+  } = recoveryEmailAndOtpStatus;
 
   const [usernameOrEmail, setUsernameOrEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [otp, setOtp] = useState(0);
+ 
 
   // created this piece of state to monitor clientside input errors
   const [errorMessage, setErrorMessage] = useState("");
   const [clientError, setClientError] = useState(false);
 
   useEffect(() => {
-    // if(payload === 'OTP sent') {
-    //   setResetPassComp('step 2')
-    // }
 
+    if(emailRes === 'OTP sent') {       
+      setResetPassComp('step 2')
+    } else if (emailAndOtpRes === 'otp valid') {
+      setResetPassComp('step 3')
+    }
+    
     if (userInfo) {
+      // semd to local storage
+      localStorage.setItem('userInfo', userInfo)
       // if login success redirect here
       history.push("/user-dashboard");
     }
-  }, [history, userInfo]);
+  }, [history, userInfo, emailRes, emailAndOtpRes]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -93,9 +105,9 @@ function Login({ location, history }) {
 
               {clientError ? (
                 <Message variant="danger">{errorMessage}</Message>
-              ) : error || emailResError ? (
-                <Message variant="danger">{error || emailResError}</Message>
-              ) : loading || emailResLoading ? (
+              ) : error || emailResError || emailAndOtpResError ? (
+                <Message variant="danger">{error || emailResError || emailAndOtpResError}</Message>
+              ) : loading || emailResLoading || emailAndOtpResLoading ? (
                 <Loader />
               ) : (
                 ""
@@ -199,23 +211,24 @@ function Login({ location, history }) {
                   <div></div>
                 ) : resetPassComp === "step 2" ? (
                   <div className="mb-3">
+                    <h3 className='text-success'>Please check your email SPAM folder for OTP </h3>
                     <label for="exampleInputEmail1" className="form-label">
-                      Enter Your OTP
+                      Enter Your OTP 
                     </label>
                     <input
-                      type="text"
+                      type="number"
                       className="form-control"
                       id="exampleInputPasswiord"
                       aria-describedby="passwordHelp"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
+                      value={otp}
+                      onChange={(e) => setOtp(e.target.value)}
                     />
 
                     <Button
                       className="mt-3"
                       variant="dark"
                       onClick={() => {
-                        setResetPassComp("step 3");
+                        dispatch(sendRecoveryEmailAndOtp(usernameOrEmail, otp));
                       }}
                     >
                       Next Step

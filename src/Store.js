@@ -7,12 +7,14 @@ import {
 } from './Reducers/UserAuthReducer/UserLoginReducer';
 
 import { 
-    sendRecoveryEmailReducer, 
+    sendRecoveryEmailReducer,
+    sendRecoveryEmailAndOtpReducer,  
 } from './Reducers/ResetPassReducers/ResetPassReducer';
 
 const reducer = combineReducers({
     userLogin: userLoginReducer,
     recoveryEmailStatus: sendRecoveryEmailReducer,
+    recoveryEmailAndOtpStatus: sendRecoveryEmailAndOtpReducer,
 });
 
 const initialState = {};
