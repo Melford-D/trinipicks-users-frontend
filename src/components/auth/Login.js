@@ -3,12 +3,17 @@ import { useDispatch, useSelector } from "react-redux";
 import NavBar from "../NavBar";
 import Celebration from "../../assets/img/celebration-2.png";
 import { Button } from "react-bootstrap";
+import {
+  USER_RECOVERY_EMAIL_RESET, 
+  USER_RECOVERY_EMAIL_AND_OTP_RESET,
+  USER_RESET_PASSWORD_RESET,
+} from '../../Constants/ResetPassConst/ResetPassConst';
 
 // login action
 import { login } from "../../Actions/UserAuthActions/UserLoginAction";
 
 // step 1
-import { sendRecoveryEmail, sendRecoveryEmailAndOtp } from "../../Actions/ResetPassActions/ResetPassActions";
+import { sendRecoveryEmail, sendRecoveryEmailAndOtp, resetPassword } from "../../Actions/ResetPassActions/ResetPassActions";
 
 // created this components for user experience and user interface notifiation
 import Message from "../MessageComp/Message";
@@ -34,8 +39,15 @@ function Login({ location, history }) {
   const {
     loading: emailAndOtpResLoading,
     error: emailAndOtpResError,
-    emailAndOtpRes,
+    OtpRes,
   } = recoveryEmailAndOtpStatus;
+
+  const passwordReset = useSelector((state) => state.passwordReset);
+  const {
+    loading: resetPassLoading,
+    error: resetPassError,
+    response: resetPassResponse,
+  } = passwordReset;
 
   const [usernameOrEmail, setUsernameOrEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -48,19 +60,34 @@ function Login({ location, history }) {
 
   useEffect(() => {
 
+    if(resetPassResponse === 'Password has been reset successfully') {
+        // semd to local storage
+        localStorage.setItem('userInfo', userInfo)
+        // if login success redirect here
+        history.push("/user-dashboard");
+        dispatch({type: USER_RESET_PASSWORD_RESET})
+    }
+
+    if(OtpRes === 'otp valid') {
+      setResetPassComp('step 3')
+      dispatch({type: USER_RECOVERY_EMAIL_AND_OTP_RESET})
+    }
+
     if(emailRes === 'OTP sent') {       
       setResetPassComp('step 2')
-    } else if (emailAndOtpRes === 'otp valid') {
-      setResetPassComp('step 3')
+      dispatch({type: USER_RECOVERY_EMAIL_RESET})
     }
+
+    console.log(resetPassComp)
+    console.log(OtpRes)
     
-    if (userInfo) {
+    if (userInfo || resetPassResponse === 'Password has been reset successfully') {
       // semd to local storage
       localStorage.setItem('userInfo', userInfo)
       // if login success redirect here
       history.push("/user-dashboard");
     }
-  }, [history, userInfo, emailRes, emailAndOtpRes]);
+  }, [history, userInfo, emailRes, OtpRes, resetPassResponse, resetPassComp, dispatch]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -105,9 +132,9 @@ function Login({ location, history }) {
 
               {clientError ? (
                 <Message variant="danger">{errorMessage}</Message>
-              ) : error || emailResError || emailAndOtpResError ? (
-                <Message variant="danger">{error || emailResError || emailAndOtpResError}</Message>
-              ) : loading || emailResLoading || emailAndOtpResLoading ? (
+              ) : error || emailResError || emailAndOtpResError || resetPassError ? (
+                <Message variant="danger">{error || emailResError || emailAndOtpResError || resetPassError}</Message>
+              ) : loading || emailResLoading || emailAndOtpResLoading || resetPassLoading ? (
                 <Loader />
               ) : (
                 ""
@@ -271,9 +298,9 @@ function Login({ location, history }) {
                     <button
                       type="submit"
                       className="btn btn-color text-white btn-lg py-2 px-5 mt-3 mb-5"
-                      onClick={handleSubmit}
+                      onClick={() => {dispatch(resetPassword(password, usernameOrEmail))}}
                     >
-                      Log in
+                      reset password
                     </button>
                   </div>
                 ) : (

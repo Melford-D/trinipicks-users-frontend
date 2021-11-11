@@ -9,12 +9,14 @@ import {
 import { 
     sendRecoveryEmailReducer,
     sendRecoveryEmailAndOtpReducer,  
+    resetPasswordReducer,
 } from './Reducers/ResetPassReducers/ResetPassReducer';
 
 const reducer = combineReducers({
     userLogin: userLoginReducer,
     recoveryEmailStatus: sendRecoveryEmailReducer,
     recoveryEmailAndOtpStatus: sendRecoveryEmailAndOtpReducer,
+    passwordReset: resetPasswordReducer,
 });
 
 const initialState = {};
