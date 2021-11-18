@@ -3,8 +3,12 @@ import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import { 
-    userLoginReducer 
+    userLoginReducer,
 } from './Reducers/UserAuthReducer/UserLoginReducer';
+
+import {
+    userSignupReducer, 
+} from './Reducers/UserAuthReducer/UserSignupReducer'
 
 import { 
     sendRecoveryEmailReducer,
@@ -14,6 +18,7 @@ import {
 
 const reducer = combineReducers({
     userLogin: userLoginReducer,
+    userSignup: userSignupReducer,
     recoveryEmailStatus: sendRecoveryEmailReducer,
     recoveryEmailAndOtpStatus: sendRecoveryEmailAndOtpReducer,
     passwordReset: resetPasswordReducer,

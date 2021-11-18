@@ -38,6 +38,10 @@ function NavBar() {
             <Link to="/login">
               <Button className="login text-white">Login</Button>
             </Link>
+
+            <Link to="/signup">
+              <Button className="login text-white">Sign Up</Button>
+            </Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

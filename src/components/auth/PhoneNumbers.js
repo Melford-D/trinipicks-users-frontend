@@ -1,18 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 import PhoneInput from "react-phone-number-input";
 
-function PhoneNumbers() {
-  const [value, setValue] = useState();
+function PhoneNumbers({
+  setPhoneNumber,
+  phoneNumber,
+}) {
   return (
     <>
       <PhoneInput
+        enableAreaCode={true}
         defaultCountry="NG"
         placeholder="Enter phone number"
-        value={value}
-        onChange={setValue}
+        value={phoneNumber}
+        onChange={phoneNumber => setPhoneNumber(phoneNumber)}
         className="form-control phone"
       />
-      {value}
     </>
   );
 }

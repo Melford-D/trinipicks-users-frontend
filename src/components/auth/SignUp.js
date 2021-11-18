@@ -1,9 +1,80 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
+import { useDispatch, useSelector } from "react-redux";
 import NavBar from "../NavBar";
 import Celebration from "../../assets/img/celebration-2.png";
 import PhoneNumbers from "./PhoneNumbers";
 
-function SignUp() {
+import Message from "../MessageComp/Message";
+import Loader from "../LoaderComp/Loader";
+import { userSignupAction } from "../../Actions/UserAuthActions/UserSignupAction";
+
+function SignUp({history}) {
+  const dispatch = useDispatch();
+
+  const userSignup = useSelector((state) => state.userSignup);
+  const {loading, error, response} = userSignup;
+  console.log(response)
+
+  const [fullName, setFullName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState(''); 
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [agreement, setAgreement] = useState(false);
+
+  // created this piece of state to monitor clientside input errors
+  const [errorMessage, setErrorMessage] = useState("");
+  const [clientError, setClientError] = useState(false);
+
+  useEffect(() => {
+    if(response === 'Email sent') {
+      history.push('/user-dashboard')
+    }
+  }, [history, response])
+
+  const handleRegisterUser = (e) => {
+    e.preventDefault();
+
+    const userRegDsta = {
+      name: fullName,
+      email,
+      phone_number: phoneNumber,
+      password,
+      country: 'Nigeria'
+    };
+
+      // user input validation
+      if (fullName.length < 5) {
+        setErrorMessage(
+          "Please full name should have more than 5 characters"
+        );
+        setClientError(true);
+      } else if (!email.includes('@')) {
+        setErrorMessage("Please enter correct email");
+        setClientError(true);
+      } else if (password < 5 && password !== confirmPassword) {
+        setErrorMessage("Please password should have more than 5 characters and should be the same with confirm password");
+        setClientError(true);
+      } else {
+        setErrorMessage(" ");
+        setClientError(false);
+        dispatch(userSignupAction(userRegDsta));
+      }
+
+    console.log(
+      {
+        fullName,
+        email,
+        phoneNumber,
+        username,
+        password,
+        confirmPassword,
+        agreement
+      }
+    )
+  }
+
   return (
     <>
       <NavBar />
@@ -19,17 +90,30 @@ function SignUp() {
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim,
                 eveniet!
               </p>
+
+              {clientError ? (
+                <Message variant="danger">{errorMessage}</Message>
+              ) : error ? (
+                <Message variant="danger">{error}</Message>
+              ) : loading ? (
+                <Loader />
+              ) : (
+                ""
+              )}
+
               <form>
                 <div className="mb-3">
-                  <label for="exampleInputEmail1" className="form-label">
+                  <label for="exampleInputFullName" className="form-label">
                     Full Name
                   </label>
                   <input
                     type="text"
                     className="form-control"
-                    id="exampleInputEmail1"
+                    id="exampleInputFullName"
                     aria-describedby="emailHelp"
                     required
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
                   />
                 </div>
                 <div className="mb-3">
@@ -42,6 +126,8 @@ function SignUp() {
                     id="exampleInputEmail1"
                     aria-describedby="emailHelp"
                     required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                   <div id="emailHelp" className="form-text">
                     We'll never share your email with anyone else.
@@ -51,7 +137,10 @@ function SignUp() {
                   <label for="exampleInputEmail1" className="form-label">
                     Phone Number
                   </label>
-                  <PhoneNumbers />
+                  <PhoneNumbers 
+                    phoneNumber={phoneNumber} 
+                    setPhoneNumber={setPhoneNumber} 
+                    />
                   {/* <input
                     type="text"
                     className="form-control"
@@ -60,40 +149,46 @@ function SignUp() {
                   /> */}
                 </div>
                 <div className="mb-3">
-                  <label for="exampleInputEmail1" className="form-label">
+                  <label for="exampleInputUsername" className="form-label">
                     Username
                   </label>
                   <input
                     type="text"
                     className="form-control"
-                    id="exampleInputEmail1"
+                    id="exampleInputUsername"
                     aria-describedby="emailHelp"
                     required
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
                   />
                 </div>
                 <div className="mb-3 d-flex justify-content-between password-section">
                   <div className="mb-3">
-                    <label for="exampleInputEmail1" className="form-label">
+                    <label for="exampleInputPassword" className="form-label">
                       Password
                     </label>
                     <input
                       type="password"
                       className="form-control"
-                      id="exampleInputEmail1"
+                      id="exampleInputPassword"
                       aria-describedby="emailHelp"
                       required
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
                     />
                   </div>
                   <div className="mb-3">
-                    <label for="exampleInputEmail1" className="form-label">
+                    <label for="exampleInputConfirmPassword" className="form-label">
                       Confirm Password
                     </label>
                     <input
                       type="password"
                       className="form-control"
-                      id="exampleInputEmail1"
+                      id="exampleInputConfirmPassword"
                       aria-describedby="emailHelp"
                       required
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
                     />
                   </div>
                 </div>
@@ -103,6 +198,7 @@ function SignUp() {
                     id="exampleInputEmail1"
                     aria-describedby="emailHelp"
                     required
+                    onChange={() => setAgreement(!agreement)}
                   />
                   <label
                     for="exampleInputEmail1"
@@ -117,6 +213,7 @@ function SignUp() {
                   <button
                     type="submit"
                     className="btn btn-color text-white btn-lg py-2 px-5 mt-3 mb-5"
+                    onClick={handleRegisterUser}
                   >
                     Create Account
                   </button>
